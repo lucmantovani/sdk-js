@@ -978,8 +978,8 @@ Accepted properties are:
 |:------------------------------:|
 |`height`|
 |`width`|
-|`margin`|
 |`color`|
+|`margin`|
 |`margin-top` (`marginTop`)|
 |`margin-left` (`marginLeft`)|
 |`margin-bottom` (`marginBottom`)|
@@ -996,8 +996,6 @@ Accepted properties are:
 <br />
 
 ## FIELD HELPERS
-
-<br />
 
 ### `field instance`.mount(`container`)
 Field mounting method.
