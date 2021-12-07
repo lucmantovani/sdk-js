@@ -342,7 +342,8 @@ const mp = new MercadoPago('PUBLIC_KEY', {
 |getIssuers | **METHOD** |
 |getInstallments | **METHOD** |
 |createCardToken | **METHOD** |
-|cardForm | **CARDFORM** |
+|cardForm | **MODULE** |
+|checkout | **MODULE** |
 |fields | **MODULE** |
 
 <br />
@@ -622,7 +623,7 @@ Mount the `Cardform Instance` when it is instantiated
 
 Defines wheter the SDK should use MP Fields for `cardNumber`, `CVV`, `expirationYear` and `expirationMonth` or not. Check section [Fields](https://developers.mercadopago.com/en/guides/online-payments/checkout-api/receiving-payment-by-card) for more information
 
-**default value**: `true`
+**default value**: `false`
 
 ---
 
