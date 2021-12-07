@@ -658,7 +658,7 @@ Form Options:
 |`identificationNumber`|`cardFormMap`|`<input>`|Documentation value HTML options|**REQUIRED**|
 |`issuer`|`cardFormMap`|`<select>`|Issuer value HTML options|**REQUIRED**|
 
-\* Should be used when `iFrame` is `true`
+\* Must be used when `iFrame` is `true`
 
 <br />
 
@@ -881,8 +881,6 @@ Trigger `onSubmit` callback
 
 ## Fields module
 
-<br />
-
 ### `mp instance`.fields.createCardToken(`nonPCIData`)
 Token creation method
 
@@ -938,7 +936,6 @@ Field instantiation method.
 #### Returns: `FIELD INSTANCE`
 
 <br />
-<br />
 
 #### Params:
 `type` | _string_, **REQUIRED**
@@ -966,7 +963,7 @@ Style
 
 Style is an object with keys being the name of CSS property and value a `string` with the property value.
 
-`Ex:`
+`style`
 ```js
 {
     height: "100%",
@@ -977,12 +974,24 @@ Style is an object with keys being the name of CSS property and value a `string`
 
 Accepted properties are:
 
-|                                |                                  |                                |                                    |
-|:------------------------------:|:--------------------------------:|:------------------------------:|:----------------------------------:|
-|            `height`            |              `width`             |            `margin`            |     `margin-top` (`marginTop`)     |
-|  `margin-left` (`marginLeft`)  | `margin-bottom` (`marginBottom`) | `marginRight` (`margin-right`) |      `font-size` (`fontSize`)      |
-|             `color`            |             `padding`            |  `padding-top` (`paddingTop`)  | `padding-bottom` (`paddingBottom`) |
-| `padding-left` (`paddingLeft`) | `padding-right` (`paddingRight`) |   `text-align` (`textAlign`)   |    `font-family` (`fontFamily`)    |
+|             Property           |
+|:------------------------------:|
+|`height`|
+|`width`|
+|`margin`|
+|`color`|
+|`margin-top` (`marginTop`)|
+|`margin-left` (`marginLeft`)|
+|`margin-bottom` (`marginBottom`)|
+|`margin-right` (`marginRight`)|
+|`font-size` (`fontSize`)|
+|`padding`|
+|`padding-top` (`paddingTop`)|
+|`padding-bottom` (`paddingBottom`)|
+|`padding-left` (`paddingLeft`)|
+|`padding-right` (`paddingRight`)|
+|`text-align` (`textAlign`)|
+|`font-family` (`fontFamily`)|
 
 <br />
 
@@ -1028,7 +1037,7 @@ Method to add event listeners to field.
 
 The default events, enabled for every field are: `blur`, `focus`, `ready` or `validityChange`. The table below specifies the callback functions signature for every event.
 
-| event | params | Description |
+| Event | Params | Description |
 |-|-|-|
 |blur|`defaultEvent`|Callback triggered when blur event occurs|
 |focus|`defaultEvent`|Callback triggered when focus event occurs|
@@ -1056,9 +1065,9 @@ The default events, enabled for every field are: `blur`, `focus`, `ready` or `va
 
 <br />
 
-The `cardNumber` field has yet another event enabled: `change`. This event is used to obtain the card bin, in order to be able to get issuer, installments and other info. The table below specicies its callback
+The `cardNumber` field has yet another event enabled: `change`. This event is used to obtain the card bin, in order to be able to get issuer, installments and other info. The table below specicies its callback:
 
-| event | params | Description |
+| Event | Params | Description |
 |-|-|-|
 |change|`changeEvent`|Callback triggered when change event occurs|
 
