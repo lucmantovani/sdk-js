@@ -960,7 +960,7 @@ Options:
 
 <br />
 
-Style
+#### Style
 
 Style is an object with keys being the name of CSS property and value a `string` with the property value.
 
