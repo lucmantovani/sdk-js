@@ -619,14 +619,6 @@ Mount the `Cardform Instance` when it is instantiated
 
 ---
 
-`iFrame` | _boolean_, **OPTIONAL**
-
-Defines wheter the SDK should use MP Fields for `cardNumber`, `CVV`, `expirationYear` and `expirationMonth` or not. Check section [Fields](https://developers.mercadopago.com/en/guides/online-payments/checkout-api/receiving-payment-by-card) for more information
-
-**default value**: `false`
-
----
-
 `processingMode` | _string_, **OPTIONAL**
 
 Set the processing mode
@@ -650,16 +642,15 @@ Form Options:
 |`id`|`string`|`<form>`|Form ID|**REQUIRED**|
 |`cardholderName`|`cardFormMap`|`<input>`|Cardholder name HTML options|**REQUIRED**|
 |`cardholderEmail`|`cardFormMap`|`<input>`|Cardholder Email HTML options|**OPTIONAL**|
-|`cardNumber`|`cardFormMap`|`<input>`\|`<div>*`|Card number HTML options|**REQUIRED**|
-|`cardExpirationMonth`|`cardFormMap`|`<input>` \| `<select>`\|`<div>*`|Card expiration month HTML options|**REQUIRED**|
-|`cardExpirationYear`|`cardFormMap`|`<input>` \| `<select>`\|`<div>*`|Card expiration year HTML options|**REQUIRED**|
-|`securityCode`|`cardFormMap`|`<input>`\|`<div>*`|CVV HTML options|**REQUIRED**|
+|`cardNumber`|`cardFormMap`|`<input>`\|Card number HTML options|**REQUIRED**|
+|`cardExpirationMonth`|`cardFormMap`|`<input>` \| `<select>`\|Card expiration month HTML options|**REQUIRED**|
+|`cardExpirationYear`|`cardFormMap`|`<input>` \| `<select>`\|Card expiration year HTML options|**REQUIRED**|
+|`cardExpirationDate`|`cardFormMap`|`<input>` \| `<select>`\|Card expiration date HTML options|**REQUIRED**|
+|`securityCode`|`cardFormMap`|`<input>`\|CVV HTML options|**REQUIRED**|
 |`installments`|`cardFormMap`|`<select>`|Installments HTML options|**REQUIRED**|
 |`identificationType`|`cardFormMap`|`<select>`|Documentation type HTML options|**REQUIRED**|
 |`identificationNumber`|`cardFormMap`|`<input>`|Documentation value HTML options|**REQUIRED**|
 |`issuer`|`cardFormMap`|`<select>`|Issuer value HTML options|**REQUIRED**|
-
-\* Must be used when `iFrame` is `true`
 
 <br />
 
@@ -694,8 +685,6 @@ The `callback` object contains callbaks functions to handle different stages of 
 |onCardTokenReceived|`error`?: ERROR  <br/>`data`?: `cardTokenResponse`|Callback triggered when `createCardToken()` response returns|**OPTIONAL**|
 |onFetching|`resource`?: String|Callback triggered whenever the SDK is asynchronously fetching an external resource. **Its possible to return a function from this callback, which is executed after the fetching is done**|**OPTIONAL**|
 |onSubmit|`event`?: Event|Callback triggered before the form is submitted|**OPTIONAL**|
-|onReady||Callback triggered when every field is ready<br />**Only triggered when `iFrame` is `true`**|**OPTIONAL**|
-|onValidityChange|`event`: validityChangeEvent|Callback triggered when some field has its value changed<br />**Only triggered when `iFrame` is `true`**|**OPTIONAL**|
 
 `validityChangeEvent`
 ```js
@@ -815,6 +804,23 @@ The `callback` object contains callbaks functions to handle different stages of 
 ```
 
 <br />
+
+---
+
+`iframe` | _boolean_, **OPTIONAL**
+
+Defines wheter the SDK should use MP Fields for `cardNumber`, `CVV` and `expirationDate` or not.
+
+If you opt to use `iframe`, you must change the HTML Element for `cardNumber`, `CVV`, `expirationMonth` and `expirationDate` to `div`, that will be used as the container for the iFrames. Also, there are two callbacks triggered only when using `iframe`. Check the table below for more information:
+
+| Callback | Params | Description | |
+|-|-|-|-|
+|onReady||Callback triggered when every field is ready|**OPTIONAL**|
+|onValidityChange|`event`: validityChangeEvent|Callback triggered when some field has its value changed|**OPTIONAL**|
+
+Check section [Fields](https://developers.mercadopago.com/en/guides/online-payments/checkout-api/receiving-payment-by-card) for more information
+
+**default value**: `false`
 
 ---
 
