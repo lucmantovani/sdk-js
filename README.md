@@ -87,8 +87,7 @@ See the API for [Checkout API CardForm](#mp-instancecardformamount-automount-pro
 <body>
  <form id="form-checkout" >
    <input type="text" name="cardNumber" id="form-checkout__cardNumber" />
-   <input type="text" name="cardExpirationMonth" id="form-checkout__cardExpirationMonth" />
-   <input type="text" name="cardExpirationYear" id="form-checkout__cardExpirationYear" />
+   <input type="text" name="cardExpirationDate" id="form-checkout__cardExpirationDate" />
    <input type="text" name="cardholderName" id="form-checkout__cardholderName"/>
    <input type="email" name="cardholderEmail" id="form-checkout__cardholderEmail"/>
    <input type="text" name="securityCode" id="form-checkout__securityCode" />
@@ -125,13 +124,9 @@ See the API for [Checkout API CardForm](#mp-instancecardformamount-automount-pro
                  id: 'form-checkout__cardNumber',
                  placeholder: 'Card number',
              },
-              cardExpirationMonth: {
-                 id: 'form-checkout__cardExpirationMonth',
-                 placeholder: 'MM'
-             },
-             cardExpirationYear: {
-                 id: 'form-checkout__cardExpirationYear',
-                 placeholder: 'YYYY'
+             cardExpirationDate: {
+                 id: 'form-checkout__cardExpirationDate',
+                 placeholder: 'MM/YYYY'
              },
              securityCode: {
                  id: 'form-checkout__securityCode',
@@ -199,6 +194,19 @@ See the API for [Checkout API CardForm](#mp-instancecardformamount-automount-pro
                     progressBar.setAttribute('value', '0')
                 }
             },
+            onError: (error, event) => {
+                console.log(event, error);
+            },
+            onValidityChange: (error, field) => {
+                if (error) {
+                    error.forEach(e => {
+                        console.log(`${field}: ${JSON.stringify(e, null, 2)}`);
+                    })
+                }
+            },
+            onReady: () => {
+                console.log("CardForm ready");
+            }
         }
      })
  </script>
@@ -685,14 +693,9 @@ The `callback` object contains callbaks functions to handle different stages of 
 |onCardTokenReceived|`error`?: ERROR  <br/>`data`?: `cardTokenResponse`|Callback triggered when `createCardToken()` response returns|**OPTIONAL**|
 |onFetching|`resource`?: String|Callback triggered whenever the SDK is asynchronously fetching an external resource. **Its possible to return a function from this callback, which is executed after the fetching is done**|**OPTIONAL**|
 |onSubmit|`event`?: Event|Callback triggered before the form is submitted|**OPTIONAL**|
-
-`validityChangeEvent`
-```js
-{
-    field: string,
-    errorMessages: string[]
-}
-```
+|onReady||Callback triggered when cardForm is ready. It occurs when `getIdentificationTypes()` response returns and when iframes are ready if iframe option is true|**OPTIONAL**|
+|onValidityChange|`error`?: `validityChangeResponse`<br>`field`?: string|Callback triggered when some field has its value changed from an invalid state to valid or from valid to invalid|**OPTIONAL**|
+|onError|`error`?: `onErrorResponse`<br>`event`?: ErrorEvent|Callback triggered when some error occurs. You can use this callback to replace error validation of previous callbacks|**OPTIONAL**|
 
 <br />
 
@@ -802,6 +805,24 @@ The `callback` object contains callbaks functions to handle different stages of 
     token: string
 }
 ```
+---
+`validityChangeResponse`
+```js
+[
+    {
+        message: string
+    }
+]
+```
+---
+`onErrorResponse`
+```js
+[
+    {
+        message: string
+    }
+]
+```
 
 <br />
 
@@ -811,12 +832,7 @@ The `callback` object contains callbaks functions to handle different stages of 
 
 Defines wheter the SDK should use MP Fields for `cardNumber`, `CVV` and `expirationDate` or not.
 
-If you opt to use `iframe`, you must change the HTML Element for `cardNumber`, `CVV`, `expirationMonth` and `expirationDate` to `div`, that will be used as the container for the iFrames. Also, there are two callbacks triggered only when using `iframe`. Check the table below for more information:
-
-| Callback | Params | Description | |
-|-|-|-|-|
-|onReady||Callback triggered when every field is ready|**OPTIONAL**|
-|onValidityChange|`event`: validityChangeEvent|Callback triggered when some field has its value changed|**OPTIONAL**|
+If you opt to use `iframe`, you must change the HTML Element for `cardNumber`, `CVV` and `expirationDate` to `div`, in order to be used as the container for the iFrames.
 
 Check section [Fields](https://developers.mercadopago.com/en/guides/online-payments/checkout-api/receiving-payment-by-card) for more information
 
@@ -929,7 +945,6 @@ Options:
 |------------------------|--------|
 | `cardId`               | string |
 | `cardholderName`       | string |
-| `cardholderEmail`      | string |
 | `identificationType`   | string |
 | `identificationNumber` | string |
 
@@ -1048,23 +1063,28 @@ The default events, enabled for every field are: `blur`, `focus`, `ready` or `va
 |focus|`defaultEvent`|Callback triggered when focus event occurs|
 |ready|`defaultEvent`|Callback triggered when ready event occurs|
 |validityChange|`validityChangeEvent`|Callback triggered when validityChange event occurs|
+|error|`errorEvent`|Callback triggered when error event occurs|
 
 `defaultEvent`
 ```js
 {
-    data: {
-        field: string
-    }
+    field: string
 }
 ```
 
 `validityChangeEvent`
 ```js
 {
-    data: {
-        field: string,
-        errorMessages: string[]
-    }
+    field: string,
+    errorMessages: string[]
+}
+```
+
+`errorEvent`
+```js
+{
+    field: string,
+    error: string
 }
 ```
 
@@ -1079,10 +1099,8 @@ The `cardNumber` field has yet another event enabled: `change`. This event is us
 `changeEvent`
 ```js
 {
-    data: {
-        bin: string,
-        field: string
-    }
+    bin: string,
+    field: string
 }
 ```
 
