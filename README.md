@@ -669,6 +669,7 @@ Form Options:
 |-|-|-|-|
 |`id`|`string`|Field ID|**REQUIRED**|
 |`placeholder`|`string`|Field Placeholder|**OPTIONAL**|
+|`style`|`object`|Field styles only available for `cardNumber`, `CVV`, `expirationDate`, `expirationMonth` and `expirationYear` when the `iframe` option is `true`. [See more](#style)|**OPTIONAL**|
 
 <br />
 
@@ -998,22 +999,22 @@ Accepted properties are:
 
 |             Property           |
 |:------------------------------:|
-|`height`|
-|`width`|
 |`color`|
+|`"font-family"` \| \| `fontFamily`|
+|`"font-size"` \| \| `fontSize`|
+|`height`|
 |`margin`|
-|`margin-top` (`marginTop`)|
-|`margin-left` (`marginLeft`)|
-|`margin-bottom` (`marginBottom`)|
-|`margin-right` (`marginRight`)|
-|`font-size` (`fontSize`)|
+|`"margin-bottom"` \| \| `marginBottom`|
+|`"margin-left"` \| \| `marginLeft`|
+|`"margin-right"` \| \| `marginRight`|
+|`"margin-top"` \| \| `marginTop`|
 |`padding`|
-|`padding-top` (`paddingTop`)|
-|`padding-bottom` (`paddingBottom`)|
-|`padding-left` (`paddingLeft`)|
-|`padding-right` (`paddingRight`)|
-|`text-align` (`textAlign`)|
-|`font-family` (`fontFamily`)|
+|`"padding-bottom"` \| \| `paddingBottom`|
+|`"padding-left"` \| \| `paddingLeft`|
+|`"padding-right"` \| \| `paddingRight`|
+|`"padding-top"` \| \| `paddingTop`|
+|`"text-align"` \| \| `textAlign`|
+|`width`|
 
 <br />
 
@@ -1057,13 +1058,15 @@ Method to add event listeners to field.
 
 The default events, enabled for every field are: `blur`, `focus`, `ready` or `validityChange`. The table below specifies the callback functions signature for every event.
 
-| Event | Params | Description |
-|-|-|-|
-|blur|`defaultEvent`|Callback triggered when blur event occurs|
-|focus|`defaultEvent`|Callback triggered when focus event occurs|
-|ready|`defaultEvent`|Callback triggered when ready event occurs|
-|validityChange|`validityChangeEvent`|Callback triggered when validityChange event occurs|
-|error|`errorEvent`|Callback triggered when error event occurs|
+| Event | Params | Description | Enabled for |
+|-|-|-|-|
+|blur|`defaultEvent`|Callback triggered when blur event occurs| ALL |
+|focus|`defaultEvent`|Callback triggered when focus event occurs| ALL |
+|ready|`defaultEvent`|Callback triggered when field has been initialized| ALL |
+|change|`defaultEvent`|Callback triggered when field value changes| ALL |
+|validityChange|`validityChangeEvent`|Callback triggered when field state changes from invalid to valid or from valid to invalid| ALL |
+|error|`errorEvent`|Callback triggered when error event occurs| ALL |
+|binChange|`binChangeEvent`|Callback triggered when bin state changes from invalid to valid or from valid to invalid. It returns the bin when valid or null when invalid| cardNumber |
 
 `defaultEvent`
 ```js
@@ -1088,18 +1091,10 @@ The default events, enabled for every field are: `blur`, `focus`, `ready` or `va
 }
 ```
 
-<br />
-
-The `cardNumber` field has yet another event enabled: `change`. This event is used to obtain the card bin, in order to be able to get issuer, installments and other info. The table below specicies its callback:
-
-| Event | Params | Description |
-|-|-|-|
-|change|`changeEvent`|Callback triggered when change event occurs|
-
-`changeEvent`
+`binChangeEvent`
 ```js
 {
-    bin: string,
+    bin: string | null,
     field: string
 }
 ```
