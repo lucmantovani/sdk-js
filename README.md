@@ -980,6 +980,27 @@ Options:
 
 <br />
 
+### `mp instance`.fields.setSecurityCode(`securityCode`)
+Token creation method
+
+<br />
+
+#### Returns: `void`
+
+<br />
+
+#### Params:
+`securityCode` | _object_, **REQUIRED**
+
+Options:
+
+| Field                  | Type             |              |
+|:----------------------:|:----------------:|:------------:|
+| `length`               | string \| number | **REQUIRED** |
+| `mode`                 | string           | **REQUIRED** |
+
+<br />
+
 #### Style
 
 Style is an object with keys being the name of CSS property and value a `string` with the property value.
