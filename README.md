@@ -981,7 +981,7 @@ Options:
 <br />
 
 ### `mp instance`.fields.setSecurityCode(`securityCode`)
-Token creation method
+Method to send securityCode information and improve CVV validation.
 
 <br />
 
