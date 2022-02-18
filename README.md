@@ -667,6 +667,7 @@ Form Options:
 |`id`|`string`|Field ID|**REQUIRED**|
 |`placeholder`|`string`|Field Placeholder|**OPTIONAL**|
 |`style`|`object`|Field styles only available for `cardNumber`, `CVV`, `expirationDate`, `expirationMonth` and `expirationYear` when the `iframe` option is `true`. [See more](#style)|**OPTIONAL**|
+|`customFonts`|`array`|Field customFonts only available for `cardNumber`, `CVV`, `expirationDate`, `expirationMonth` and `expirationYear` when the `iframe` option is `true`. [See more](#custom-fonts)|**OPTIONAL**|
 
 <br />
 
@@ -977,6 +978,7 @@ Options:
 |:-------------:|:--------:|:-------------------------:|:------------:|
 | `placeholder` | `string` | Defines field placeholder | **OPTIONAL** |
 | `style`       | `object` | Defines field styles      | **OPTIONAL** |
+| `customFonts` | `array`  | Defines field customFonts | **OPTIONAL** |
 
 <br />
 
@@ -1000,6 +1002,9 @@ Accepted properties are:
 |`color`|
 |`"font-family"` \| \| `fontFamily`|
 |`"font-size"` \| \| `fontSize`|
+|`"font-style"` \| \| `fontStyle`|
+|`"font-variant"` \| \| `fontVariant`|
+|`"font-weight"` \| \| `fontWeight`|
 |`height`|
 |`margin`|
 |`"margin-bottom"` \| \| `marginBottom`|
@@ -1013,6 +1018,19 @@ Accepted properties are:
 |`"padding-top"` \| \| `paddingTop`|
 |`"text-align"` \| \| `textAlign`|
 |`width`|
+
+<br />
+
+#### Custom Fonts
+
+Custom Fonts is an array with `src` attribute defining an url from where to load a custom font.
+
+`customFonts`
+```js
+[
+    src: "https://fonts.googleapis.com/css2?family=Roboto"
+]
+```
 
 <br />
 
