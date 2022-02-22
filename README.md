@@ -973,10 +973,11 @@ The `options` object have properties to customize the field being created.
 
 Options:
 
-|   Option key  |   Type   |        Description        |              |
-|:-------------:|:--------:|:-------------------------:|:------------:|
-| `placeholder` | `string` | Defines field placeholder | **OPTIONAL** |
-| `style`       | `object` | Defines field styles      | **OPTIONAL** |
+|   Option key  |   Type   |        Description        |              | Enabled for                    |
+|:-------------:|:--------:|:-------------------------:|:------------:|:------------------------------:|
+| `placeholder` | `string` | Defines field placeholder | **OPTIONAL** | ALL                            |
+| `style`       | `object` | Defines field styles      | **OPTIONAL** | ALL                            |
+| `mode`        | `string` | Defines year mode         | **OPTIONAL** | expirationYear, expirationDate |
 
 <br />
 
@@ -1013,6 +1014,18 @@ Accepted properties are:
 |`"padding-top"` \| \| `paddingTop`|
 |`"text-align"` \| \| `textAlign`|
 |`width`|
+
+<br />
+
+#### Year Mode
+
+Defines year mode for 'expirationYear' or 'expirationMonth' fields.
+
+Possible values are `short` or `full`. 
+
+- `short`: year must be of two digits.
+- `full`: year must be of two digits.
+- `undefined`: both formats are accepted.
 
 <br />
 
