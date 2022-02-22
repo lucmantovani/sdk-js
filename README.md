@@ -898,6 +898,29 @@ Invoke a `HTMLFormElement.requestSubmit()` on your `cardForm` form element
 Trigger `onSubmit` callback
 
 ---
+### `cardform instance`.update(`field`, `properties`)
+Method to update field properties.
+
+<br />
+
+#### Params:
+
+|    Param    |    Type    |                     Description                     |          |
+|:-----------:|:----------:|:---------------------------------------------------:|:--------:|
+| `field`     | `string`   | Field to update                                     | REQUIRED |
+| `properties`| `object`   | Properties to update                                | REQUIRED |
+
+<br />
+
+The table below specifies the properties available for being updated.
+
+| Event | Params | Description | Enabled for |
+|-|-|-|-|
+|placeholder|`string`|Field placeholder| ALL |
+
+<br />
+
+---
 
 <br />
 
@@ -1097,6 +1120,38 @@ The default events, enabled for every field are: `blur`, `focus`, `ready` or `va
 {
     bin: string | null,
     field: string
+}
+```
+
+<br />
+
+### `field instance`.update(`properties`)
+Method to update field properties.
+
+<br />
+
+#### Params:
+
+|    Param    |    Type    |                     Description                     |          |
+|:-----------:|:----------:|:---------------------------------------------------:|:--------:|
+| `properties`| `object`   | Properties to update                                | REQUIRED |
+
+<br />
+
+<br />
+
+The table below specifies the properties available for being updated.
+
+| Event | Params | Description | Enabled for |
+|-|-|-|-|
+|placeholder|`string`|Field placeholder| ALL |
+|settings|`SecurityCode`|Security code settings| CVV |
+
+`SecurityCode`
+```js
+{
+    mode: string, // 'mandatory' | 'optional'
+    length: number // 3 | 4
 }
 ```
 
