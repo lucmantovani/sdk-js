@@ -1084,6 +1084,9 @@ The default events, enabled for every field are: `blur`, `focus`, `ready` or `va
 }
 ```
 
+<br />
+
+The table below provides information about causes and messages:
 <table>
     <tr>
         <td><b>Field</b></td>
