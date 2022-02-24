@@ -953,6 +953,13 @@ Options:
 ### `mp instance`.fields.create(`type`, `options`)
 Field instantiation method.
 
+Example:
+```js
+mp.fields.create("cardNumber", {
+    placeholder: "Card Number",
+});
+```
+
 <br />
 
 #### Returns: `FIELD INSTANCE`
@@ -990,8 +997,9 @@ Style is an object with keys being the name of CSS property and value a `string`
 ```js
 {
     height: "100%",
-    marginTop: "8px"
-    "margin-bottom": "8px"
+    marginTop: "8px",
+    "margin-bottom": "8px",
+    fontFamily: "Roboto"
 }
 ```
 
@@ -1019,6 +1027,16 @@ Accepted properties are:
 |`"text-align"` \| \| `textAlign`|
 |`width`|
 
+Example:
+```js
+mp.fields.create("cardNumber", {
+    placeholder: "Card Number",
+    style: {
+        fontFamily: "Roboto"
+    }
+});
+```
+
 <br />
 
 #### Custom Fonts
@@ -1027,9 +1045,24 @@ Custom Fonts is an array with `src` attribute defining an url from where to load
 
 `customFonts`
 ```js
-[
+{
     src: "https://fonts.googleapis.com/css2?family=Roboto"
-]
+}
+```
+
+Example:
+```js
+mp.fields.create("cardNumber", {
+    placeholder: "Card Number",
+    style: {
+        fontFamily: "Roboto"
+    },
+    customFonts: [
+        {
+            src: "https://fonts.googleapis.com/css2?family=Roboto"
+        }
+    ]
+});
 ```
 
 <br />
