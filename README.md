@@ -1142,7 +1142,7 @@ Method to update field properties.
 
 The table below specifies the properties available for being updated.
 
-| Event | Params | Description | Enabled for |
+| Property | Type | Description | Enabled for |
 |-|-|-|-|
 |placeholder|`string`|Field placeholder| ALL |
 |settings|`SecurityCode`|Security code settings| CVV |
