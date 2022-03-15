@@ -667,6 +667,7 @@ Form Options:
 |`id`|`string`|Field ID|**REQUIRED**|
 |`placeholder`|`string`|Field Placeholder|**OPTIONAL**|
 |`style`|`object`|Field styles only available for `cardNumber`, `securityCode`, `expirationDate`, `expirationMonth` and `expirationYear` when the `iframe` option is `true`. [See more](#style)|**OPTIONAL**|
+|`customFonts`|`array`|Field customFonts only available for `cardNumber`, `securityCode`, `expirationDate`, `expirationMonth` and `expirationYear` when the `iframe` option is `true`. [See more](#custom-fonts)|**OPTIONAL**|
 
 <br />
 
@@ -898,6 +899,29 @@ Invoke a `HTMLFormElement.requestSubmit()` on your `cardForm` form element
 Trigger `onSubmit` callback
 
 ---
+### `cardform instance`.update(`field`, `properties`)
+Method to update field properties.
+
+<br />
+
+#### Params:
+
+|    Param    |    Type    |                     Description                     |          |
+|:-----------:|:----------:|:---------------------------------------------------:|:--------:|
+| `field`     | `string`   | Field to update                                     | REQUIRED |
+| `properties`| `object`   | Properties to update                                | REQUIRED |
+
+<br />
+
+The table below specifies the properties available for being updated.
+
+| Property | Type | Description | Enabled for |
+|-|-|-|-|
+|placeholder|`string`|Field placeholder| ALL |
+
+<br />
+
+---
 
 <br />
 
@@ -952,6 +976,13 @@ Options:
 ### `mp instance`.fields.create(`type`, `options`)
 Field instantiation method.
 
+Example:
+```js
+mp.fields.create("cardNumber", {
+    placeholder: "Card Number",
+});
+```
+
 <br />
 
 #### Returns: `FIELD INSTANCE`
@@ -973,10 +1004,12 @@ The `options` object have properties to customize the field being created.
 
 Options:
 
-|   Option key  |   Type   |        Description        |              |
-|:-------------:|:--------:|:-------------------------:|:------------:|
-| `placeholder` | `string` | Defines field placeholder | **OPTIONAL** |
-| `style`       | `object` | Defines field styles      | **OPTIONAL** |
+|   Option key  |   Type   |        Description                                   |              | Enabled for                    |
+|---------------|----------|------------------------------------------------------|--------------|--------------------------------|
+| `placeholder` | `string` | Defines field placeholder.                           | **OPTIONAL** | ALL                            |
+| `style`       | `object` | Defines field styles. [See more](#style)             | **OPTIONAL** | ALL                            |
+| `customFonts` | `array`  | Defines field customFonts. [See more](#custom-fonts) | **OPTIONAL** | ALL                            |
+| `mode`        | `string` | Defines year mode. [See more](#year-mode)            | **OPTIONAL** | expirationYear, expirationDate |
 
 <br />
 
@@ -988,8 +1021,9 @@ Style is an object with keys being the name of CSS property and value a `string`
 ```js
 {
     height: "100%",
-    marginTop: "8px"
-    "margin-bottom": "8px"
+    marginTop: "8px",
+    "margin-bottom": "8px",
+    fontFamily: "Roboto"
 }
 ```
 
@@ -1000,6 +1034,9 @@ Accepted properties are:
 |`color`|
 |`"font-family"` \| \| `fontFamily`|
 |`"font-size"` \| \| `fontSize`|
+|`"font-style"` \| \| `fontStyle`|
+|`"font-variant"` \| \| `fontVariant`|
+|`"font-weight"` \| \| `fontWeight`|
 |`height`|
 |`margin`|
 |`"margin-bottom"` \| \| `marginBottom`|
@@ -1013,6 +1050,56 @@ Accepted properties are:
 |`"padding-top"` \| \| `paddingTop`|
 |`"text-align"` \| \| `textAlign`|
 |`width`|
+
+Example:
+```js
+mp.fields.create("cardNumber", {
+    placeholder: "Card Number",
+    style: {
+        fontFamily: "Roboto"
+    }
+});
+```
+
+<br />
+
+#### Custom Fonts
+
+Custom Fonts is an array with `src` attribute defining an url from where to load a custom font.
+
+`customFonts`
+```js
+{
+    src: "https://fonts.googleapis.com/css2?family=Roboto"
+}
+```
+
+Example:
+```js
+mp.fields.create("cardNumber", {
+    placeholder: "Card Number",
+    style: {
+        fontFamily: "Roboto"
+    },
+    customFonts: [
+        {
+            src: "https://fonts.googleapis.com/css2?family=Roboto"
+        }
+    ]
+});
+```
+
+<br />
+
+#### Year Mode
+
+Defines year mode for 'expirationYear' or 'expirationMonth' fields.
+
+Possible values are `short` or `full`. 
+
+- `short`: year must be of two digits.
+- `full`: year must be of two digits.
+- `undefined`: both formats are accepted.
 
 <br />
 
@@ -1084,6 +1171,108 @@ The default events, enabled for every field are: `blur`, `focus`, `ready` or `va
 }
 ```
 
+<br />
+
+The table below provides information about causes and messages:
+<table>
+    <tr>
+        <td><b>Field</b></td>
+        <td><b>Cause</b></td>
+        <td><b>Messages</b></td>
+    </tr>
+    <tr>
+        <td rowspan="2">
+
+`           cardNumber`
+        </td>
+        <td>
+
+`           invalid_type`
+        </td>
+        <td>cardNumber should be a number.</td>
+    </tr>
+    <tr>
+        <td>
+        
+`           invalid_length`
+        </td>
+        <td>cardNumber should be of length between '9' and '18'.</td>
+    </tr>
+    <tr>
+        <td rowspan="2">
+        
+`           securityCode`
+        </td>
+        <td>
+        
+`           invalid_type`
+        </td>
+        <td>securityCode should be a number.</td>
+    </tr>
+    <tr>
+        <td>
+        
+`           invalid_length`
+        </td>
+        <td>securityCode should be of length '3'.<br />securityCode should be of length '4'.</td>
+    </tr>
+    <tr>
+        <td rowspan="2">
+        
+`           expirationMonth`
+        </td>
+        <td>
+        
+`           invalid_type`
+        </td>
+        <td>expirationMonth should be a number.</td>
+    </tr>
+    <tr>
+        <td>
+        
+`           invalid_value`
+        </td>
+        <td>expirationMonth should be a value from 1 to 12.</td>
+    </tr>
+    <tr>
+        <td rowspan="3">
+        
+`           expirationYear`
+        </td>
+        <td>
+        
+`           invalid_type`
+        </td>
+        <td>expirationYear should be a number.</td>
+    </tr>
+    <tr>
+        <td>
+        
+`           invalid_length`
+        </td>
+        <td>expirationYear should be of length '2' or '4'.</td>
+    </tr>
+    <tr>
+        <td>
+        
+`           invalid_value`
+        </td>
+        <td>expirationYear should be greater or equal than &lt;currentYear&gt;.</td>
+    </tr>
+    <tr>
+        <td rowspan="3">
+        
+`           expirationDate`
+        </td>
+        <td colspan="2" style="padding: 16px"><center>
+        
+`expirationMonth` and `expirationYear` causes and messages.
+        </center></td>
+    </tr>
+</table>
+
+<br />
+
 `errorEvent`
 ```js
 {
@@ -1097,6 +1286,45 @@ The default events, enabled for every field are: `blur`, `focus`, `ready` or `va
 {
     bin: string | null,
     field: string
+}
+```
+
+<br />
+
+### `field instance`.update(`properties`)
+Method to update field properties.
+
+<br />
+
+#### Params:
+
+|    Param    |    Type    |                     Description                     |          |
+|:-----------:|:----------:|:---------------------------------------------------:|:--------:|
+| `properties`| `object`   | Properties to update                                | REQUIRED |
+
+<br />
+
+<br />
+
+The table below specifies the properties available for being updated.
+
+| Property | Type | Description | Enabled for |
+|-|-|-|-|
+|placeholder|`string`|Field placeholder| ALL |
+|settings|`SecurityCode` \| `CardNumber`|Field settings| securityCode, cardNumber |
+
+`SecurityCode`
+```js
+{
+    mode: string, // 'mandatory' | 'optional'
+    length: number // 3 | 4
+}
+```
+
+`CardNumber`
+```js
+{
+    length: number // Between 8 and 19
 }
 ```
 
