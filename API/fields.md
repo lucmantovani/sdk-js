@@ -163,6 +163,7 @@ Accepted properties are:
 |`"font-variant"` \| \| `fontVariant`|
 |`"font-weight"` \| \| `fontWeight`|
 |`height`|
+|`left` |
 |`margin`|
 |`"margin-bottom"` \| \| `marginBottom`|
 |`"margin-left"` \| \| `marginLeft`|
@@ -174,7 +175,9 @@ Accepted properties are:
 |`"padding-right"` \| \| `paddingRight`|
 |`"padding-top"` \| \| `paddingTop`|
 |`"placeholder-color"` \| \| `placeholderColor`|
+|`position` |
 |`"text-align"` \| \| `textAlign`|
+|`top` |
 |`width`|
 
 Example:
@@ -186,6 +189,13 @@ mp.fields.create("cardNumber", {
     }
 });
 ```
+
+> **Note on accessibility**:<br>For better adjustment on accessibility, set `position: absolute`, `top: 0`, `left: 0` and use every other property with `vh`.<br><br>
+To transform from `px` to `vh` multiply to `100` and divide by the desired input height.<br>
+Ex:<br>
+\- Desired value in px: `16px`<br>
+\- Input height in px: `22px`<br>
+\- Value in vh: `16 * 100 / 22 = 72.72vh`
 
 <br />
 
